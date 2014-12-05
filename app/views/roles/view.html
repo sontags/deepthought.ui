@@ -1,0 +1,27 @@
+<h1>
+	View Role &laquo;{{ name }}&raquo;
+	<a class="btn btn-primary pull-right hidden-print" href="#/roles/edit/{{name}}">
+		<span class="glyphicon glyphicon-cog" aria-hidden"true"></span>
+	</a>
+</h1>
+<hr>
+
+<div class="row">
+    <div class="col-xs-4">
+		<h2>Nodes</h2>
+		<hr>
+		
+		<div>
+			<span data-ng-repeat="node in nodes">
+				<a href="#/nodes/view/{{node}}"><span class="badge">{{node}}</span></a>&nbsp;
+			</span>	
+		</div>
+    </div>
+
+    <div class="col-xs-8">
+		<h2>Variables</h2>
+		<hr>
+
+		<pre data-ng-repeat="var in role.vars">{{var.vars}}</pre>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<h1>
+	Edit Node &laquo;{{ name }}&raquo;
+</h1>
+<hr>
+
+<div class="row">
+    <div class="col-xs-4">
+		<h2>Roles</h2>
+		<hr>
+		
+		<div>
+			<span data-ng-repeat="role in node.rolenames">
+				<span class="badge">{{role}}</span>&nbsp;
+			</span>	
+		</div>
+    </div>
+
+    <div class="col-xs-8">
+		<h2>Variables</h2>
+		<hr>
+
+		<div data-ng-repeat="var in node.vars">
+		
+			<div data-ng-if="var.source != 'native'">
+				<h3>
+					{{ var.source }} <small>Priority: {{var.prio}}</small>
+
+					<button type="button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden"true"></span></button>
+				</h3>
+				
+				<pre>{{ node.yamlvars[var.source] }}</pre>
+			</div>
+
+			<div data-ng-if="var.source == 'native'">
+				<h3>
+					{{ var.source }}
+
+					<button type="button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-floppy-disk" aria-hidden"true"></span></button>
+				</h3>
+				
+				<pre contenteditable="true">{{ node.yamlvars[var.source] }}</pre>
+			</div>
+		</div>
+    </div>
+</div>

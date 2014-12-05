@@ -1,0 +1,32 @@
+<div ui-view>
+	<h1>
+		Nodes
+		<button class="btn btn-primary pull-right hidden-print" data-ui-sref="nodes.add">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+	</h1>
+
+	<hr>
+
+	<div class="input-group input-group">
+		<span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
+		<input data-ng-model="filter.name" type="text" class="form-control" placeholder="enter filter string">
+	</div>
+	
+	<br>
+
+	<div>
+		<table class="table table-striped">
+			<tbody>
+				<tr class="animate-repeat" data-ng-repeat="node in nodes | filter:filter:strict">
+					<td class="listElement">
+						<a href="#/nodes/view/{{node.name}}">{{node.name}}</a>
+						<span data-ng-repeat="role in node.rolenames" class="pull-right">
+							&nbsp;<a href="#/roles/view/{{role}}"><span class="badge">{{role}}</span></a>
+						</span>	
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
