@@ -9,7 +9,5 @@
  */
 angular.module('deepthought')
   .controller('DashCtrl', function ($scope) {
-    $scope.id = [
-      'dash'
-    ];
+    $scope.id = 'dash';
   });

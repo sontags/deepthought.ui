@@ -14,6 +14,7 @@ angular
     'restangular',
     'ncy-angular-breadcrumb',
     'ngAnimate',
+    'jsonFormatter'
   ])
   .config(['$urlRouterProvider', '$stateProvider',  function($urlRouterProvider, $stateProvider) {
 
@@ -27,7 +28,7 @@ angular
         ncyBreadcrumb: { label: 'Dashboard' }
       })
       .state('settings', {
-        url: 'settings',
+        url: '/settings',
         templateUrl: 'views/settings.html',
         controller: 'SettingsCtrl',
         ncyBreadcrumb: { label: 'Settings' }
@@ -41,7 +42,7 @@ angular
       .state('nodes.add', {
         url: '/add',
         templateUrl: 'views/nodes/add.html',
-        controller: 'NodeCtrl',
+        controller: 'AddCtrl',
         ncyBreadcrumb: { label: 'Add' }
       })
       .state('nodes.view', {
@@ -56,6 +57,12 @@ angular
         controller: 'NodeCtrl',
         ncyBreadcrumb: { label: 'Edit' }
       })
+      .state('nodes.delete', {
+        url: '/delete/:name',
+        templateUrl: 'views/nodes/delete.html',
+        controller: 'NodeCtrl',
+        ncyBreadcrumb: { label: 'Delete' }
+      })
       .state('roles', {
         url: '/roles',
         templateUrl: 'views/roles/list.html',
@@ -65,7 +72,7 @@ angular
       .state('roles.add', {
         url: '/add',
         templateUrl: 'views/roles/add.html',
-        controller: 'RoleCtrl',
+        controller: 'AddCtrl',
         ncyBreadcrumb: { label: 'Add' }
       })
       .state('roles.view', {
@@ -79,6 +86,12 @@ angular
         templateUrl: 'views/roles/edit.html',
         controller: 'RoleCtrl',
         ncyBreadcrumb: { label: 'Edit' }
+      })
+      .state('roles.delete', {
+        url: '/delete/:name',
+        templateUrl: 'views/roles/delete.html',
+        controller: 'RoleCtrl',
+        ncyBreadcrumb: { label: 'Delete' }
       });
   }])
   .run(['Restangular', function (Restangular) {

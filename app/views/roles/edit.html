@@ -1,6 +1,66 @@
-<h1>Edit Role &laquo;{{ name }}&raquo;</h1>
+<h1>
+	Edit Role &laquo;{{ name }}&raquo;
+
+	<a class="btn btn-primary pull-right hidden-print" href="#/roles/view/{{name}}">
+		<span class="glyphicon glyphicon-ok" aria-hidden"true"></span>&nbsp;&nbsp;Done
+	</a>
+</h1>
 <hr>
 
-<p data-ng-repeat="var in role.vars">
-	{{var.vars}}
-</p>
+<div class="row">
+    <div class="col-xs-4">
+		<h2>Nodes</h2>
+		<hr>
+
+		<div class="input-group input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
+			<input data-ng-model="nodeFilter" type="text" class="form-control" placeholder="Filter Nodes by Name">
+		</div>
+
+		<br>
+		
+		<div>
+			<span class="animate" data-ng-repeat="node in nodemap | filter:nodeFilter | orderBy:'name'" data-ng-click="toggleNode(node.name)">
+				<span class="badge badge-success" data-ng-if="node.enabled" >{{node.name}}</span><span class="badge" data-ng-if="!node.enabled">{{node.name}}</span>&nbsp;
+			</span>	
+		</div>
+    </div>
+
+    <div class="col-xs-8">
+		<h2>Variables</h2>
+		<hr>
+
+		<div data-ng-repeat="var in role.vars | orderBy:'prio'">
+		
+			<div data-ng-if="var.source != 'native'">
+				<h3>
+					{{ var.source }} <small>Priority: {{var.prio}}</small>
+				</h3>
+				
+				<pre id="vars_{{var.source}}">{{ role.yamlvars[var.source] }}</pre>
+
+				<div>&nbsp;
+					<button type="button" class="btn btn-primary pull-right" data-ng-click="retriggerProvider(var.source)">
+						<span class="glyphicon glyphicon-refresh" aria-hidden"true"></span>&nbsp;&nbsp;Retrigger
+					</button>
+				</div>
+			</div>
+
+			<div data-ng-if="var.source == 'native'">
+				<h3>
+					{{ var.source }}
+				</h3>
+				
+				<textarea class="form-control yaml-edit" name="" cols="30" rows="10" id="vars_{{var.source}}">{{ role.yamlvars[var.source] }}</textarea> 
+
+				<br>
+
+				<div>&nbsp;
+					<button type="button" class="btn btn-primary pull-right" data-ng-click="saveNative()">
+						<span class="glyphicon glyphicon-floppy-saved" aria-hidden"true"></span>&nbsp;&nbsp;Save
+					</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>

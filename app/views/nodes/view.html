@@ -1,8 +1,13 @@
 <h1>
 	View Node &laquo;{{ name }}&raquo;
-	<a class="btn btn-primary pull-right hidden-print" href="#/nodes/edit/{{name}}">
-		<span class="glyphicon glyphicon-cog" aria-hidden"true"></span>
-	</a>
+	<div class="btn-group pull-right " role="group" aria-label="Actions">
+		<a class="btn btn-primary hidden-print" href="#/nodes/edit/{{name}}">
+			<span class="glyphicon glyphicon-cog" aria-hidden"true"></span>&nbsp;&nbsp;Edit
+		</a>
+		<a class="btn btn-danger hidden-print" href="#/nodes/delete/{{name}}">
+			<span class="glyphicon glyphicon-trash" aria-hidden"true"></span>&nbsp;&nbsp;Delete
+		</a>
+	</div>
 </h1>
 <hr>
 
@@ -12,8 +17,8 @@
 		<hr>
 		
 		<div>
-			<span data-ng-repeat="role in node.rolenames">
-				<a href="#/roles/view/{{role}}"><span class="badge">{{role}}</span></a>&nbsp;
+			<span data-ng-repeat="role in rolemap | filter:{enabled:true}">
+				<a href="#/roles/view/{{role.name}}"><span class="badge">{{role.name}}</span></a>
 			</span>	
 		</div>
     </div>

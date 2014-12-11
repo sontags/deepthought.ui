@@ -2,7 +2,7 @@
 	<h1>
 		Roles
 		<button class="btn btn-primary pull-right hidden-print"  data-ui-sref="roles.add">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;Add
 		</button>
 	</h1>
 
@@ -10,17 +10,27 @@
 
 	<div class="input-group input-group">
 		<span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
-		<input data-ng-model="filter.name" type="text" class="form-control" placeholder="enter filter string">
+		<input data-ng-model="filter.name" type="text" class="form-control" placeholder="Filter by Role Name">
 	</div>
 	
 	<br>
 
 	<div>
-		<table class="table table-striped">
+		<table class="table table-striped table-hover">
 			<tbody>
-				<tr class="animate-repeat" data-ng-repeat="role in roles | filter:filter.name:strict">
+				<tr class="animate" data-ng-repeat="role in roles | filter:filter:strict | orderBy:'name'">
 					<td class="listElement">
 						<a href="#/roles/view/{{role.name}}">{{role.name}}</a>
+					</td>
+					<td width="100px" align="right">
+  						<div class="btn-group" role="group" aria-label="Actions">
+							<a class="btn btn-primary hidden-print" href="#/roles/edit/{{role.name}}">
+								<span class="glyphicon glyphicon-cog" aria-hidden"true"></span>
+							</a>
+							<a class="btn btn-danger hidden-print" href="#/roles/delete/{{role.name}}">
+								<span class="glyphicon glyphicon-trash" aria-hidden"true"></span>
+							</a>
+						</div>
 					</td>
 				</tr>
 			</tbody>

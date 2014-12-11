@@ -1,5 +1,9 @@
 <h1>
 	Edit Node &laquo;{{ name }}&raquo;
+
+	<a class="btn btn-primary pull-right hidden-print" href="#/nodes/view/{{name}}">
+		<span class="glyphicon glyphicon-ok" aria-hidden"true"></span>&nbsp;&nbsp;Done
+	</a>
 </h1>
 <hr>
 
@@ -7,10 +11,17 @@
     <div class="col-xs-4">
 		<h2>Roles</h2>
 		<hr>
+
+		<div class="input-group input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
+			<input data-ng-model="roleFilter" type="text" class="form-control" placeholder="Filter Roles by Name">
+		</div>
+
+		<br>
 		
 		<div>
-			<span data-ng-repeat="role in node.rolenames">
-				<span class="badge">{{role}}</span>&nbsp;
+			<span class="animate" data-ng-repeat="role in rolemap | filter:roleFilter | orderBy:'name'" data-ng-click="toggleRole(role.name)">
+				<span class="badge badge-success" data-ng-if="role.enabled" >{{role.name}}</span><span class="badge" data-ng-if="!role.enabled">{{role.name}}</span>&nbsp;
 			</span>	
 		</div>
     </div>
@@ -19,26 +30,36 @@
 		<h2>Variables</h2>
 		<hr>
 
-		<div data-ng-repeat="var in node.vars">
+		<div data-ng-repeat="var in node.vars | orderBy:'prio'">
 		
 			<div data-ng-if="var.source != 'native'">
 				<h3>
 					{{ var.source }} <small>Priority: {{var.prio}}</small>
-
-					<button type="button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden"true"></span></button>
 				</h3>
 				
-				<pre>{{ node.yamlvars[var.source] }}</pre>
+				<pre id="vars_{{var.source}}">{{ node.yamlvars[var.source] }}</pre>
+
+				<div>&nbsp;
+					<button type="button" class="btn btn-primary pull-right" data-ng-click="retriggerProvider(var.source)">
+						<span class="glyphicon glyphicon-refresh" aria-hidden"true"></span>&nbsp;&nbsp;Retrigger
+					</button>
+				</div>
 			</div>
 
 			<div data-ng-if="var.source == 'native'">
 				<h3>
 					{{ var.source }}
-
-					<button type="button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-floppy-disk" aria-hidden"true"></span></button>
 				</h3>
 				
-				<pre contenteditable="true">{{ node.yamlvars[var.source] }}</pre>
+				<textarea class="form-control yaml-edit" name="" cols="30" rows="10" id="vars_{{var.source}}">{{ node.yamlvars[var.source] }}</textarea> 
+
+				<br>
+
+				<div>&nbsp;
+					<button type="button" class="btn btn-primary pull-right" data-ng-click="saveNative()">
+						<span class="glyphicon glyphicon-floppy-saved" aria-hidden"true"></span>&nbsp;&nbsp;Save
+					</button>
+				</div>
 			</div>
 		</div>
     </div>

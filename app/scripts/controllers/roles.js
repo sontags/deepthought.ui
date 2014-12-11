@@ -14,10 +14,14 @@ angular.module('deepthought')
   		function ($scope, Restangular) {
 
     		var baseRoles = Restangular.all('roles');
-    		
-    		baseRoles.getList().then(function(roles) {
-    			$scope.roles = roles;
-    		}, function errorCallback() {
-  				console.log('Failed to fetch roles from server');
-			});
+
+        $scope.reloadScope = function() {
+    		  baseRoles.getList().then(function(roles) {
+    		  	$scope.roles = roles;
+    		  }, function errorCallback() {
+            console.log('Failed to fetch roles from server');
+          });
+        };
+
+        $scope.reloadScope();
   }]);

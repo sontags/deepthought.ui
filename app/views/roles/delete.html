@@ -2,3 +2,16 @@
 	Delete Role &laquo;{{ name }}&raquo;
 </h1>
 <hr>
+
+<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> You are about to delete the the role &laquo;{{name}}&raquo;. <strong>This action cannot be undone.</strong></div>
+
+<div align="center">
+	<div class="btn-group" role="group" aria-label="Actions">
+		<a class="btn btn-primary hidden-print" href="#/roles/view/{{name}}">
+			<span class="glyphicon glyphicon-ban-circle" aria-hidden"true"></span>&nbsp;&nbsp;Nope
+		</a>
+		<button class="btn btn-danger hidden-print" data-ng-click="deleteRole()">
+			<span class="glyphicon glyphicon-trash" aria-hidden"true"></span>&nbsp;&nbsp;Delete
+		</button>
+	</div>
+</div>
