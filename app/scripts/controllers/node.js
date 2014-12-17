@@ -1,4 +1,4 @@
-/*global $ */
+/*global $, jsyaml */
 
 'use strict';
 
@@ -47,16 +47,19 @@ angular.module('deepthought')
         };
 
         $scope.saveNative = function() {
-          var vars = $('#vars_native').val();
-          console.log(vars);
+          try {
+            var vars = jsyaml.safeLoad($('#vars_native').val());
 
-          var baseNodeNativeVars = baseNode.all('vars');
+            var baseNodeNativeVars = baseNode.all('vars');
 
-          baseNodeNativeVars.customPUT(vars, 'native' ,{d: 'yaml'}, {'Content-Type': 'text/plain'}).then(function() {
-            $rootScope.message = { text: 'Native nodevars successfully updated.', success: true };
-          }, function errorCallback() {
-            $rootScope.message = { text: 'Native nodevars could not be updated.', success: false };
-          });
+            baseNodeNativeVars.customPUT(vars, 'native' ,{d: 'json'}, {'Content-Type': 'text/plain'}).then(function() {
+              $rootScope.message = { text: 'Native nodevars successfully updated.', success: true };
+            }, function errorCallback() {
+              $rootScope.message = { text: 'Native nodevars could not be updated.', success: false };
+            });
+          } catch (err) {
+            $rootScope.message = { text: 'Native nodevars could be parsed: ' + (err.stack || String(err)), success: false };
+          }
         };
 
         $scope.retriggerProvider = function(name) {
