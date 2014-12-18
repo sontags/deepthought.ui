@@ -1,5 +1,7 @@
 'use strict';
 
+angular.module('HTTPBasicAuth', []);
+
 /**
  * @ngdoc overview
  * @name deepthoughtuiApp
@@ -14,11 +16,13 @@ angular
     'restangular',
     'ncy-angular-breadcrumb',
     'ngAnimate',
-    'jsonFormatter'
+    'jsonFormatter',
+    'ngCookies',
+    'HTTPBasicAuth'
   ])
   .config(['$urlRouterProvider', '$stateProvider',  function($urlRouterProvider, $stateProvider) {
 
-    $urlRouterProvider.otherwise('dash');
+    $urlRouterProvider.otherwise('login');
 
     $stateProvider
       .state('dash', {
@@ -26,6 +30,12 @@ angular
         templateUrl: 'views/dash.html',
         controller: 'DashCtrl',
         ncyBreadcrumb: { label: 'Dashboard' }
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        ncyBreadcrumb: { label: 'Login' }
       })
       .state('settings', {
         url: '/settings',
@@ -94,7 +104,15 @@ angular
         ncyBreadcrumb: { label: 'Delete' }
       });
   }])
-  .run(['Restangular', function (Restangular) {
-    Restangular.setBaseUrl('http://0.0.0.0:8089');
-  }]);
+  .run(['Restangular', '$rootScope', '$location', '$cookieStore', '$http', function (Restangular, $rootScope, $location, $cookieStore, $http) {
+    $rootScope.baseUrl = 'http://0.0.0.0:8089/api';
+    Restangular.setBaseUrl($rootScope.baseUrl);
 
+    var authdata = $cookieStore.get('authdata');
+    if (authdata) {
+      $http.defaults.headers.common.Authorization = 'Basic ' + authdata;
+    } else {
+      $location.path('/login');
+    }
+
+  }]);

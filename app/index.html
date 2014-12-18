@@ -20,7 +20,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <header data-ng-include="'views/nav.html'"></header>
+    <header data-ng-include="'views/nav.html'" data-ng-controller="NavCtrl"></header>
 
     <div class="container content">
         <div data-ui-view></div>
@@ -80,9 +80,13 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+
+    <script src="scripts/services/auth.js"></script>
     
     <script src="scripts/controllers/dash.js"></script>
     <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/messages.js"></script>
 
     <script src="scripts/controllers/add.js"></script>
