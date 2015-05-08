@@ -12,7 +12,7 @@
 		<span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
 		<input data-ng-model="filter.name" type="text" class="form-control" placeholder="Filter by Node Name">
 	</div>
-	
+
 	<br>
 
 	<div>
@@ -25,15 +25,15 @@
 					<td>
 						<span data-ng-repeat="role in node.rolenames | orderBy:''" class="pull-right">
 							&nbsp;<a href="#/roles/view/{{role}}"><span class="badge">{{role}}</span></a>
-						</span>	
+						</span>
 					</td>
 					<td width="100px" align="right">
   						<div class="btn-group" role="group" aria-label="Actions">
 							<a class="btn btn-primary hidden-print" href="#/nodes/edit/{{node.name}}">
-								<span class="glyphicon glyphicon-cog" aria-hidden"true"></span>
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 							</a>
 							<a class="btn btn-danger hidden-print" href="#/nodes/delete/{{node.name}}">
-								<span class="glyphicon glyphicon-trash" aria-hidden"true"></span>
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</a>
 						</div>
 					</td>
